@@ -2,6 +2,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { DiseaseService } from './disease.service';
 
+
 @Controller('api/v1/disease')
 export class DiseaseController {
   constructor(private readonly diseaseService: DiseaseService) {}

@@ -1,32 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { lastValueFrom, map } from 'rxjs';
+import { DiseaseData } from 'src/interface/disease';
 
 @Injectable()
 export class DiseaseService {
   constructor(private readonly httpService: HttpService) {}
   async getAllDisease(countries: string) {
     const url = `https://disease.sh/v3/covid-19/countries/${countries}`;
-    const diseaseResponse = this.httpService.get(url).pipe(
-      map((res) =>
-        res.data.map((res) => {
-          const country = res.country;
-          const todayCases = res.todayCases;
-          const todayDeaths = res.totalDeaths;
-          const active = res.active;
-          const critical = res.critical;
-          return {
-            country: country,
-            todayCases: todayCases,
-            todayDeaths: todayDeaths,
-            active: active,
-            critical: critical,
-          };
-        }),
-      ),
-    );
-    const data = lastValueFrom(diseaseResponse);
-    return data;
+    const diseaseResponse = this.httpService.axiosRef.get(url)
+    const result : DiseaseData =  (await diseaseResponse).data;  
+    return result; 
   }
 }
