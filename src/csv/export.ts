@@ -4,7 +4,7 @@ import * as uuid  from 'uuid';
 import * as fs from 'fs';
 import { DiseaseData } from 'src/interface/disease';
 
-  const fields = ['country', 'totalCases', 'totalDeaths', 'active' , 'critical']
+  const fields = ['country', 'totalCases', 'totalDeaths','date' ,'active' , 'critical']
   const opts = {fields};
 
   export class ExportFiles {
@@ -22,7 +22,6 @@ import { DiseaseData } from 'src/interface/disease';
        console.log (error); 
       }
     }
-    
   }
   
 
