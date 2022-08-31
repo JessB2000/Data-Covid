@@ -2,17 +2,19 @@
 import * as json2csv from 'json2csv';
 import * as uuid  from 'uuid';
 import * as fs from 'fs';
-import { DiseaseData } from 'src/interface/disease';
+import { Injectable } from '@nestjs/common';
 
-  const fields = ['country', 'totalCases', 'totalDeaths','date' ,'active' , 'critical']
+  const fields = ['country', 'todayCases', 'todayDeaths','date' ,'active' , 'critical']
   const opts = {fields};
-
+@Injectable()
   export class ExportFiles {
-    tocsv = async function (dado: DiseaseData){
+ static async tocsv (dado): Promise<any> { 
+  console.log(dado); 
       try{
-        const csv = json2csv.parseAsync(dado, opts)
+        const csv = await json2csv.parseAsync(dado, opts)
+        console.log(csv); 
         const filename = uuid.v4()+".csv"; 
-        fs.writeFile('../exports/' + filename, csv, function(err){
+        fs.writeFile('./src/filescsv/' + filename, csv, function(err){
           if (err) throw err; 
           console.log('Arquivo criado com sucesso')
         })
@@ -23,6 +25,7 @@ import { DiseaseData } from 'src/interface/disease';
       }
     }
   }
+ 
   
 
 
