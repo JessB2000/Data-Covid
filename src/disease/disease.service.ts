@@ -7,8 +7,8 @@ import { GoFileService } from 'src/goFile/goFile.service';
 @Injectable()
 export class DiseaseService {
   constructor(private readonly httpService: HttpService) {}
-  async getAllDisease(countries) {
-    const url = `https://disease.sh/v3/covid-19/countries/${countries}`;
+  async getAllDisease(One:string, Two:string) {
+    const url = `https://disease.sh/v3/covid-19/countries/${One},${Two}`;
     const diseaseResponse = await this.httpService.axiosRef.get(url);
     const result  =  diseaseResponse.data;  
     const list = result.map(elementAt=>{
@@ -20,9 +20,12 @@ export class DiseaseService {
        active: elementAt.active,
        critical: elementAt.critical,
       }
-    }) 
-   const value = await ExportFiles.tocsv(list);  
-    return list; 
+    })  
+   return list; 
   }
-  
-}
+  async convertToCsv (list){
+    const value = await ExportFiles.tocsv(list);
+    return value; 
+  }
+  }
+

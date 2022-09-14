@@ -7,10 +7,11 @@ import { ExportFiles } from './csv/export.service';
 import { DiseaseController } from './disease/disease.controller';
 import { DiseaseModule } from './disease/disease.module';
 import { DiseaseService } from './disease/disease.service';
+import { GoFileService } from './goFile/goFile.service';
 
 @Module({
   imports: [DiseaseModule, HttpModule, ScheduleModule.forRoot()],
   controllers: [AppController, DiseaseController],
-  providers: [AppService, DiseaseService, ExportFiles],
+  providers: [AppService, DiseaseService, ExportFiles, GoFileService],
 })
 export class AppModule {}
