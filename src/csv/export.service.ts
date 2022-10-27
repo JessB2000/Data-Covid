@@ -3,7 +3,6 @@ import * as json2csv from 'json2csv';
 import * as uuid  from 'uuid';
 import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
-import { GoFileService } from 'src/goFile/goFile.service';
 import { GoFilePath } from 'src/goFile/interface';
 
   const fields = ['country', 'todayCases', 'todayDeaths','date' ,'active' , 'critical']

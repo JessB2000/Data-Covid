@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config({path:'../.env'}); 
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import * as FormData from 'FormData'; 
+import * as FormData from 'form-data'; 
 import * as fs from 'fs'; 
 import { GoFilePath} from './interface';
 const token = process.env.FORMDATA_TOKEN; 
@@ -21,8 +21,9 @@ export class GoFileService{
     const formData = new FormData(); 
     formData.append('token', token); 
     formData.append('folderId', id);
-    formData.append('filepath', fs.createReadStream(filepath))
-    formData.append('filename', filename); 
+    formData.append('file', fs.createReadStream(filepath),{
+      filename:filename,
+    }) 
     return formData;
   }
    async uploadFormData( fileOne: GoFilePath, fileTwo: GoFilePath ){
